@@ -20,16 +20,19 @@ export class StreamMediaComponent implements OnInit {
   public state: { isAvailable: boolean; };
 
   constructor() { 
-    this.state = {
-        isAvailable: this.stream.isAvailable
-    };
-  }
+    
+  } 
+  
   ngOnInit(): void {
     
   }
 
   //async ngOnInit(): Promise<void> {
     async ngAfterContentInit(): Promise<void> {
+
+        this.state = {
+          isAvailable: this.stream.isAvailable
+        };
 
         console.log("Streaming Media");
         let renderer = new Renderer(this.stream);

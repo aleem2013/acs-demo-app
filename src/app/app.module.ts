@@ -15,6 +15,7 @@ import { MakeCallComponent } from './make-call/make-call.component';
 import { LocalVideoPreviewComponent } from './local-video-preview/local-video-preview.component';
 import { StreamMediaComponent } from './stream-media/stream-media.component';
 import { CommonModule } from '@angular/common';
+import { CallCardComponent } from './call-card/call-card.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CommonModule } from '@angular/common';
     NavBarComponent,
     MakeCallComponent,
     LocalVideoPreviewComponent,
-    StreamMediaComponent
+    StreamMediaComponent,
+    CallCardComponent
   ],
   imports: [
     BrowserModule,

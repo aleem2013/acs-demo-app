@@ -1,0 +1,26 @@
+<p>call-card works!</p>
+
+<div class="row">
+    <div class="col" *ngIf="this.call && this.call.state === 'Connected' && this.showLocalVideo">
+        <app-local-video-preview [selectedCameraDeviceId]="this.selectedCameraDeviceId" [deviceManager]="this.deviceManager"></app-local-video-preview>            
+    </div>
+    <div class="col" *ngIf="this.call && this.call.state === 'Connected' ">
+        <div class="video-grid-row">
+            <p>{{this.streams.length}}</p>
+            <div *ngFor="let item of streams; let i = index">
+                    <app-stream-media [key]="i" [stream]="item.stream" [id]="item.id"></app-stream-media>
+            </div>
+        </div>
+        <div class="my-4">
+
+        </div>
+    </div>
+    <div class="col" *ngIf="this.call && this.call.state === 'Incoming' ">
+        <button class="btn btn-primary btn-success" role="button" (click)="handleAcceptCall()">Accept</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 form-group text-center">
+        <button type="button" class="btn btn-primary btn-sx btn-danger" role="button" (click)="declineCall()">Disconnect</button>
+    </div>
+</div>

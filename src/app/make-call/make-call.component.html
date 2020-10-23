@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    
+
 
     <div class="row">
         
@@ -50,7 +50,7 @@
             <button class="btn btn-primary btn-large" role="button" (click)="placeCall()">Place Call</button>
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col" *ngIf="this.state.call && this.state.call.state === 'Connected' && this.state.showLocalVideo">
             <app-local-video-preview [selectedCameraDeviceId]="this.state.selectedCameraDeviceId" [deviceManager]="this.state.deviceManager"></app-local-video-preview>            
         </div>
@@ -68,7 +68,20 @@
         <div class="col" *ngIf="this.state.call && this.state.call.state === 'Incoming' ">
             <button class="btn btn-primary btn-large" role="button" (click)="handleAcceptCall()">Accept</button>
         </div>
-    </div>
+    </div> -->
     
+</div>
+
+<div class="container" *ngIf="this.state.call">
+    <app-call-card 
+        [call]="this.state.call" 
+        [deviceManager]="this.state.deviceManager" 
+        [selectedCameraDeviceId]="this.state.selectedCameraDeviceId" 
+        [selectedSpeakerDeviceId]="this.state.selectedSpeakerDeviceId"
+        [selectedMicrophoneDeviceId]="this.state.selectedMicrophoneDeviceId"
+        [onShowCameraNotFoundWarning]="this.state.onShowCameraNotFoundWarning"
+        [onShowSpeakerNotFoundWarning]="this.state.onShowSpeakerNotFoundWarning"
+        [onShowMicrophoneNotFoundWarning]="this.state.onShowMicrophoneNotFoundWarning">
+    </app-call-card>
 </div>
 
