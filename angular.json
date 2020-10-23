@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "acs-demo-app"
+    }
+  },
+  "defaultProject": "acs-demo-app",
+  "cli": {
+    "analytics": "7456a5da-7a77-49b4-abf9-c0907801b2b6"
+  }
 }

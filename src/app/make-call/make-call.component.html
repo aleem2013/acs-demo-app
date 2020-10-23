@@ -1,0 +1,74 @@
+<!-- <p>make-call works!</p> -->
+<div class="container">
+    <div class="row custom-width">
+        <div class="col-sm">
+            <button class="btn btn-primary btn-large" role="button" (click)="provisionNewUser()">Click to Initialize Client</button>
+        </div>
+        <div class="col-sm" *ngIf="this.state.showSpinner && this.state.id === undefined">
+             <!-- <div class="loader"> </div> -->
+             <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+             </div>
+             <div class="ml-2">Fetching token from service and initializing...</div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col form-group">
+            <small class="form-text text-muted font-weight-bold">{{this.provisionNewUserMessage}} {{this.state.id}}</small>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col form-group" *ngIf="this.callAgent">
+            <label for="DestinationIdentity">Destination Identity or Identities</label>
+            <input type="text" class="form-control" id="identities" [(ngModel)]="destinationUserIds" aria-describedby="identities" placeholder="Enter Identity or Identities">
+            <small class="form-text text-muted">You can specify multiple Identities to call by using "," separated values.</small>
+        </div>
+    </div>
+
+    
+
+    <div class="row">
+        
+            <div class="col form-group" *ngIf="this.callAgent">
+                <label for="DestinationIdentity">Destination Phone Identity or Phone Identities</label>
+                <input type="text" class="form-control" id="phoneIdentity" [(ngModel)]="destinationPhoneIds" aria-describedby="phoneIdentity" placeholder="">
+            </div>
+        
+        
+            <div class="col form-group" *ngIf="this.callAgent">
+                <label for="DestinationIdentity">Alternate Caller Id (For calling phone numbers only)</label>
+                <input type="text" class="form-control" id="alternateId" aria-describedby="alternateId" placeholder="">
+            </div>
+    </div>
+    <div class="row">
+        <div class="col form-group" *ngIf="this.callAgent">
+            <button class="btn btn-primary btn-large" role="button" (click)="placeCall()">Place Call</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" *ngIf="this.state.call && this.state.call.state === 'Connected' && this.state.showLocalVideo">
+            <app-local-video-preview [selectedCameraDeviceId]="this.state.selectedCameraDeviceId" [deviceManager]="this.state.deviceManager"></app-local-video-preview>            
+        </div>
+        <div class="col" *ngIf="this.state.call && this.state.call.state === 'Connected' ">
+            <div class="video-grid-row">
+                <p>{{this.state.streams.length}}</p>
+                <div *ngFor="let item of this.state.streams; let i = index">
+                        <app-stream-media [key]="i" [stream]="item.stream" [id]="item.id"></app-stream-media>
+                </div>
+            </div>
+            <div class="my-4">
+
+            </div>
+        </div>
+        <div class="col" *ngIf="this.state.call && this.state.call.state === 'Incoming' ">
+            <button class="btn btn-primary btn-large" role="button" (click)="handleAcceptCall()">Accept</button>
+        </div>
+    </div>
+    
+</div>
+

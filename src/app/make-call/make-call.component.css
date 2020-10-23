@@ -1,0 +1,30 @@
+
+.video-grid-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-flow: wrap;
+}
+
+.my-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.in-call-button {
+    padding-bottom: 0.4em;
+    padding-right: 0.4em;
+    padding-left: 0.4em;
+    font-size: x-large;
+}
+
+.in-call-button > i {
+    vertical-align: middle;
+}
+
+.custom-width {
+    margin-right: 40;
+}
