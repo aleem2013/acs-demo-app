@@ -1,26 +1,69 @@
-<p>call-card works!</p>
+<!-- <p>call-card works!</p> -->
+<div class="row" *ngIf="streams.length === 0">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="ml-2">Waiting for Provider to join...</div>
+</div>
 
-<div class="row">
-    <div class="col" *ngIf="this.call && this.call.state === 'Connected' && this.showLocalVideo">
-        <app-local-video-preview [selectedCameraDeviceId]="this.selectedCameraDeviceId" [deviceManager]="this.deviceManager"></app-local-video-preview>            
-    </div>
-    <div class="col" *ngIf="this.call && this.call.state === 'Connected' ">
-        <div class="video-grid-row">
-            <p>{{this.streams.length}}</p>
-            <div *ngFor="let item of streams; let i = index">
-                    <app-stream-media [key]="i" [stream]="item.stream" [id]="item.id"></app-stream-media>
-            </div>
-        </div>
-        <div class="my-4">
-
+<div class="row" *ngIf="this.call && this.call.state === 'Connected' ">
+    <div class="video-grid-row col">
+        <!-- <p>{{this.streams.length}}</p> -->
+        <div *ngFor="let item of streams; let i = index">
+                <app-stream-media [key]="i" [stream]="item.stream" [id]="item.id"></app-stream-media>
         </div>
     </div>
-    <div class="col" *ngIf="this.call && this.call.state === 'Incoming' ">
+    <div class="my-4">
+
+    </div>
+</div>
+<div class="row" *ngIf="this.call && this.call.state === 'Connected' && this.showLocalVideo">
+    <app-local-video-preview [selectedCameraDeviceId]="this.selectedCameraDeviceId" [deviceManager]="this.deviceManager"></app-local-video-preview>            
+</div>
+
+<div class="row d-flex justify-content-center" *ngIf="this.call && streams.length != 0 ">
+    <span *ngIf="this.videoOn; then videoEnabled else videoDisabled"></span>
+    <span class="col-md-3">
+        <ng-template #videoEnabled>
+            <svg (click)="this.handleVideoOnOff()" cursor="pointer" width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-camera-video" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5zm11.5 5.175l3.5 1.556V4.269l-3.5 1.556v4.35zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2z"/>
+                <title>Disable Video</title>
+            </svg>
+        </ng-template>
+        <ng-template #videoDisabled>
+            <svg (click)="this.handleVideoOnOff()" cursor="pointer" width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-camera-video-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10.961 12.365a1.99 1.99 0 0 0 .522-1.103l3.11 1.382A1 1 0 0 0 16 11.731V4.269a1 1 0 0 0-1.406-.913l-3.111 1.382A2 2 0 0 0 9.5 3H4.272l.714 1H9.5a1 1 0 0 1 1 1v6a1 1 0 0 1-.144.518l.605.847zM1.428 4.18A.999.999 0 0 0 1 5v6a1 1 0 0 0 1 1h5.014l.714 1H2a2 2 0 0 1-2-2V5c0-.675.334-1.272.847-1.634l.58.814zM15 11.73l-3.5-1.555v-4.35L15 4.269v7.462zm-4.407 3.56l-10-14 .814-.58 10 14-.814.58z"/>
+                <title>Enable Video</title>
+            </svg>    
+        </ng-template>
+    </span>
+    <span *ngIf="this.micOn; then micEnabled else micDisabled"></span>
+    <span class="col-md-3">
+        <ng-template #micEnabled>
+            <svg (click)="this.handleMicOnOff()" cursor="pointer" width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-mic" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                <path fill-rule="evenodd" d="M10 8V3a2 2 0 1 0-4 0v5a2 2 0 1 0 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z"/>
+              </svg>
+        </ng-template>
+        <ng-template #micDisabled>
+            <svg (click)="this.handleMicOnOff()" cursor="pointer" width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-mic-mute" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M12.734 9.613A4.995 4.995 0 0 0 13 8V7a.5.5 0 0 0-1 0v1c0 .274-.027.54-.08.799l.814.814zm-2.522 1.72A4 4 0 0 1 4 8V7a.5.5 0 0 0-1 0v1a5 5 0 0 0 4.5 4.975V15h-3a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-3v-2.025a4.973 4.973 0 0 0 2.43-.923l-.718-.719zM11 7.88V3a3 3 0 0 0-5.842-.963l.845.845A2 2 0 0 1 10 3v3.879l1 1zM8.738 9.86l.748.748A3 3 0 0 1 5 8V6.121l1 1V8a2 2 0 0 0 2.738 1.86zm4.908 3.494l-12-12 .708-.708 12 12-.708.707z"/>
+              </svg>
+        </ng-template>
+    </span>
+
+    <span class="col-md-3">
+        <button type="button" class="btn btn-danger" role="button" (click)="declineCall()">End call</button>
+    </span> 
+
+
+</div>
+
+<!-- <div class="row">
+    <div class="col-6 form-group text-center" *ngIf="this.call && this.call.state === 'Incoming' ">
         <button class="btn btn-primary btn-success" role="button" (click)="handleAcceptCall()">Accept</button>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-4 form-group text-center">
+    <div class="col-6 form-group text-center">
         <button type="button" class="btn btn-primary btn-sx btn-danger" role="button" (click)="declineCall()">Disconnect</button>
     </div>
-</div>
+</div> -->

@@ -13,11 +13,12 @@ export class AuthService {
         method: 'GET',
         headers: {
             'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'https://azure-comm-service-demo.azurewebsites.net'
         }
     })
     .catch((error) => {
-       console.log("Error fetching token..");
+       console.log("Error fetching token..", error);
      })
 
     if (response)

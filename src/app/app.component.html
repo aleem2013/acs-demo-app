@@ -1,6 +1,33 @@
-
+<!-- 
 <app-nav-bar></app-nav-bar>
 <main role="main" class="container">
-  <!--app-alerts></app-alerts>-->
+  <app-alerts></app-alerts>
   <router-outlet></router-outlet>
-</main>
+</main> -->
+
+
+<!-- <main role="main"> -->
+  <div class="container">
+      <div class="row" *ngIf="this.state.showSpinner && this.state.id === undefined">
+          <!-- <div class="loader"> </div> -->
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="ml-2">Connecting...</div>
+      </div>
+  </div>
+    
+  <div class="container" *ngIf="this.state.call">  
+    <app-call-card 
+        [call]="this.state.call" 
+        [deviceManager]="this.state.deviceManager" 
+        [selectedCameraDeviceId]="this.state.selectedCameraDeviceId" 
+        [selectedSpeakerDeviceId]="this.state.selectedSpeakerDeviceId"
+        [selectedMicrophoneDeviceId]="this.state.selectedMicrophoneDeviceId"
+        [onShowCameraNotFoundWarning]="this.state.onShowCameraNotFoundWarning"
+        [onShowSpeakerNotFoundWarning]="this.state.onShowSpeakerNotFoundWarning"
+        [onShowMicrophoneNotFoundWarning]="this.state.onShowMicrophoneNotFoundWarning">
+    </app-call-card>
+  </div>
+<!-- </main> -->
+

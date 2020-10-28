@@ -13,7 +13,7 @@ export class CallCardComponent implements OnInit {
   call: any;
 
   @Input()
-  deviceManager: any;
+  deviceManager: any; 
 
   @Input()
   selectedCameraDeviceId: any;
@@ -61,6 +61,8 @@ export class CallCardComponent implements OnInit {
     this.cameraDeviceOptions= [];
     this.speakerDeviceOptions= [];
     this.microphoneDeviceOptions= [];
+    this.videoOn= true;
+    this.micOn= true;
   }
 
   ngAfterContentInit(): void {
