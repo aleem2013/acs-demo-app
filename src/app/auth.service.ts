@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CommunicationIdentityClient } from '@azure/communication-administration';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,27 @@ export class AuthService {
     }
     return null;
     //throw new Error('Invalid token response');
+  }
+
+  provisionNewUserFromLocal = async ()  => {
+    const connectionString = "endpoint=https://comm-resource.communication.azure.com/;accesskey=oyF3/r0Q/K3YFlqlEn5S1Ls+EXCX8kzVNSfj5DxHgxu1lKstwlPeQXZEWvFnN2GFKbIaOA1wXp/ySII7wljwGg==";
+
+    const tokenClient = new CommunicationIdentityClient(connectionString);
+
+    const user = await tokenClient.createUser();
+
+    const userToken = await tokenClient.issueToken(user, ["voip"]);
+
+    return {
+        "User" : userToken.user,
+        "Token": userToken.token,
+        "ExpiresOn": userToken.expiresOn
+    }
+
+    // context.res = {
+    //     // status: 200, /* Defaults to 200 */
+    //     body: response
+    // };
+   // return response.json();
   }
 }

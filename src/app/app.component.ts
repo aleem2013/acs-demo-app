@@ -61,8 +61,9 @@ export class AppComponent implements OnInit {
   
   provisionNewUser(): void {
       this.state.showSpinner = true;
-      this.authService.provisionNewUser()
-        .then(async (response) => {
+      
+      this.authService.provisionNewUserFromLocal()
+        .then( async (response) => {
           this.state.id = this.getIdentifierText(response);
           this.state.token = this.getToken(response);
           console.log("calling handleLogin");
